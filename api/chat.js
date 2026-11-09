@@ -3,7 +3,12 @@
 // POST { message, history: [{ from: 'user'|'bot', text }] } -> { reply, action? }
 import Anthropic from '@anthropic-ai/sdk';
 
-const client = new Anthropic(); // lee ANTHROPIC_API_KEY del entorno
+// Lee ANTHROPIC_API_KEY del entorno. Si la clave no está asociada a un workspace,
+// define también ANTHROPIC_WORKSPACE_ID (empieza por "wrkspc_") en Vercel.
+const WORKSPACE_ID = process.env.ANTHROPIC_WORKSPACE_ID?.trim();
+const client = new Anthropic(
+  WORKSPACE_ID ? { defaultHeaders: { 'anthropic-workspace-id': WORKSPACE_ID } } : {},
+);
 
 const MODEL = 'claude-opus-5-5';
 const MAX_MESSAGE = 500;      // caracteres por mensaje
@@ -133,7 +138,8 @@ export default async function handler(req, res) {
     if (error instanceof Anthropic.AuthenticationError) {
       console.error('ANTHROPIC_API_KEY inválida o ausente');
     } else if (error instanceof Anthropic.APIError) {
-      console.error(`Claude API error ${error.status}:`, error.message);
+      const detalle = error.error?.error?.message || error.message;
+      console.error(`Claude API error ${error.status} (${error.error?.error?.type || 'sin tipo'}): ${detalle}`);
     } else {
       console.error('Error en /api/chat:', error);
     }
