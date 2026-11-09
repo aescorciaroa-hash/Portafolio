@@ -700,6 +700,30 @@ const Certificados = () => {
         @media (max-width: 640px) {
           .edu-grid { grid-template-columns: 1fr; }
         }
+
+        /* ---------- Celular: certificados en 2 columnas ---------- */
+        @media (max-width: 600px) {
+          #certificados { padding: 4.5rem 1rem !important; }
+          .cert-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
+          .cert-card { border-radius: 14px; }
+          .cert-card:hover { transform: none; }
+          .cert-thumb { aspect-ratio: 4 / 3; }
+          .cert-thumb-hover { display: none; }
+          .cert-body { padding: 0.75rem 0.75rem 0.8rem; gap: 0.35rem; }
+          .cert-top { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+          .cert-chip { font-size: 0.56rem; padding: 0.12rem 0.45rem; letter-spacing: 0.3px; }
+          .cert-date { font-size: 0.62rem; }
+          .cert-title {
+            font-size: 0.78rem; line-height: 1.3;
+            display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+          }
+          .cert-issuer { font-size: 0.64rem; }
+          .cert-foot { gap: 0.5rem; margin-top: 0.2rem; padding-top: 0.5rem; font-size: 0.62rem; }
+          .cert-foot svg { width: 11px; height: 11px; }
+          .cert-filtros { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; scrollbar-width: none; padding-bottom: 0.2rem; }
+          .cert-filtros::-webkit-scrollbar { display: none; }
+          .cert-filtro { flex-shrink: 0; }
+        }
       `}</style>
     </section>
   );
