@@ -50,7 +50,7 @@ const TiltCard = ({ p }) => {
   return (
     <div
       ref={ref}
-      className="glass-card proj-card"
+      className="glass-card"
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       style={{
@@ -65,7 +65,6 @@ const TiltCard = ({ p }) => {
     >
       {p.image && (
         <div
-          className="proj-img"
           style={{
             margin: '-1.9rem -1.9rem 0',
             borderRadius: '14px 14px 0 0',
@@ -83,11 +82,10 @@ const TiltCard = ({ p }) => {
         </div>
       )}
 
-      <div className="proj-head" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <h3 className="proj-title" style={{ fontSize: '1.2rem', fontWeight: 700 }}>{p.title}</h3>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <h3 style={{ fontSize: '1.2rem', fontWeight: 700 }}>{p.title}</h3>
         {p.inProgress && (
           <span
-            className="proj-badge"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -105,15 +103,14 @@ const TiltCard = ({ p }) => {
         )}
       </div>
 
-      <p className="proj-desc" style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.65, flexGrow: 1 }}>
+      <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.65, flexGrow: 1 }}>
         {p.description}
       </p>
 
-      <div className="proj-tags" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
         {p.tags.map((t) => (
           <span
             key={t}
-            className="proj-tag"
             style={{
               fontSize: '0.7rem',
               color: 'var(--text-primary)',
@@ -127,7 +124,7 @@ const TiltCard = ({ p }) => {
         ))}
       </div>
 
-      <div className="proj-links" style={{ display: 'flex', gap: '1.2rem', marginTop: '0.4rem' }}>
+      <div style={{ display: 'flex', gap: '1.2rem', marginTop: '0.4rem' }}>
         {p.githubUrl ? (
           <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" style={linkStyle}>
             <Github size={15} /> Código
@@ -175,58 +172,20 @@ const Proyectos = () => {
         </Reveal>
       </div>
 
-      <div className="proj-grid">
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 380px))',
+          justifyContent: 'center',
+          gap: '1.5rem',
+        }}
+      >
         {proyectos.map((p, i) => (
           <Reveal key={p.title} delay={i * 120}>
             <TiltCard p={p} />
           </Reveal>
         ))}
       </div>
-
-      <style>{`
-        .proj-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 380px));
-          justify-content: center;
-          gap: 1.5rem;
-        }
-        .proj-grid > * { height: 100%; }
-        .proj-card { height: 100%; }
-
-        /* ---------- Celular: 2 proyectos lado a lado ---------- */
-        @media (max-width: 600px) {
-          #proyectos { padding: 4.5rem 1rem !important; }
-          .proj-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
-          .proj-card {
-            padding: 0.75rem !important;
-            gap: 0.5rem !important;
-            border-radius: 14px;
-            transform: none !important;
-          }
-          .proj-img { margin: -0.75rem -0.75rem 0 !important; aspect-ratio: 4 / 3 !important; }
-          .proj-head { position: static; }
-          .proj-title { font-size: 0.9rem !important; line-height: 1.25; }
-          .proj-badge {
-            position: absolute;
-            top: 0.5rem; left: 0.5rem;
-            font-size: 0.56rem !important;
-            padding: 0.15rem 0.45rem !important;
-            background: rgba(10,10,11,0.82);
-            backdrop-filter: blur(6px);
-          }
-          .proj-badge svg { width: 9px; height: 9px; }
-          .proj-desc {
-            font-size: 0.7rem !important;
-            line-height: 1.5 !important;
-            display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
-          }
-          .proj-tags { gap: 0.3rem !important; max-height: 2.9rem; overflow: hidden; }
-          .proj-tag { font-size: 0.58rem !important; padding: 0.15rem 0.45rem !important; }
-          .proj-links { margin-top: 0.1rem !important; }
-          .proj-links a, .proj-links span { font-size: 0.72rem !important; }
-          .proj-links svg { width: 13px; height: 13px; }
-        }
-      `}</style>
     </section>
   );
 };
