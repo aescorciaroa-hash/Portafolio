@@ -36,6 +36,22 @@ const Header = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Menú móvil: cerrar con Esc, al pasar a escritorio, y bloquear el scroll de fondo
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+    const onKey = (e) => e.key === 'Escape' && setMenuOpen(false);
+    const onResize = () => window.innerWidth > 900 && setMenuOpen(false);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('resize', onResize);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('resize', onResize);
+    };
+  }, [menuOpen]);
+
   return (
     <header
       style={{
@@ -139,76 +155,130 @@ const Header = () => {
 
         {/* hamburguesa */}
         <button
+          type="button"
           onClick={() => setMenuOpen(!menuOpen)}
-          className="nav-burger"
-          aria-label="Menú"
-          style={{
-            display: 'none',
-            placeItems: 'center',
-            width: 38,
-            height: 38,
-            borderRadius: '999px',
-            border: '1px solid var(--border)',
-            background: 'rgba(255,255,255,0.04)',
-            color: 'var(--text-primary)',
-            cursor: 'pointer',
-          }}
+          className={`nav-burger ${menuOpen ? 'is-open' : ''}`}
+          aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+          aria-expanded={menuOpen}
+          aria-controls="menu-movil"
         >
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
+      </div>
 
-        {/* menú móvil */}
-        {menuOpen && (
-          <div
-            style={{
-              position: 'absolute',
-              top: 'calc(100% + 0.6rem)',
-              left: 0,
-              right: 0,
-              background: 'rgba(11,11,13,0.96)',
-              backdropFilter: 'blur(18px)',
-              border: '1px solid var(--border)',
-              borderRadius: '18px',
-              display: 'flex',
-              flexDirection: 'column',
-              padding: '0.8rem',
-              gap: '0.2rem',
-              boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
-            }}
-          >
-            {links.map((l) => (
+      {/* menú móvil (fuera de la píldora para que el fondo sólido y la animación funcionen) */}
+      {menuOpen && (
+        <>
+          <div className="mnav-backdrop" onClick={() => setMenuOpen(false)} aria-hidden="true" />
+          <nav id="menu-movil" className="mnav" aria-label="Menú principal">
+            {links.map((l, i) => (
               <a
                 key={l.href}
                 href={l.href}
                 onClick={() => setMenuOpen(false)}
-                style={{
-                  color: active === l.href ? 'var(--text-primary)' : 'var(--text-secondary)',
-                  fontSize: '0.95rem',
-                  fontWeight: 600,
-                  padding: '0.7rem 0.9rem',
-                  borderRadius: '10px',
-                  background: active === l.href ? 'rgba(255,255,255,0.05)' : 'transparent',
-                }}
+                className={`mnav-link ${active === l.href ? 'is-active' : ''}`}
+                style={{ animationDelay: `${0.04 + i * 0.035}s` }}
               >
-                {l.label}
+                <span className="mnav-num">0{i + 1}</span>
+                <span className="mnav-label">{l.label}</span>
+                <ArrowRight size={16} className="mnav-arrow" />
               </a>
             ))}
             <a
               href="#contacto"
               onClick={() => setMenuOpen(false)}
-              className="btn btn-primary"
-              style={{ marginTop: '0.4rem', justifyContent: 'center', fontSize: '0.85rem' }}
+              className="btn btn-primary mnav-cta"
             >
-              Contáctame <ArrowRight size={14} />
+              Contáctame <ArrowRight size={15} />
             </a>
-          </div>
-        )}
-      </div>
+          </nav>
+        </>
+      )}
 
       <style>{`
+        .nav-burger {
+          display: none;
+          place-items: center;
+          width: 40px; height: 40px; flex-shrink: 0;
+          border-radius: 999px;
+          border: 1px solid var(--border);
+          background: rgba(255,255,255,0.04);
+          color: var(--text-primary);
+          cursor: pointer;
+          transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+        .nav-burger:hover { border-color: rgba(255,122,26,0.5); }
+        .nav-burger.is-open { background: var(--accent-soft); border-color: rgba(255,122,26,0.5); color: var(--accent); }
+        .nav-burger svg { animation: navIcon 0.25s ease; }
+        @keyframes navIcon { from { transform: rotate(-90deg) scale(0.6); opacity: 0; } }
+
+        .mnav-backdrop {
+          position: fixed; inset: 0; z-index: -1;
+          pointer-events: auto;
+          background: rgba(5,5,6,0.6);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          animation: mnavFade 0.25s ease;
+        }
+        .mnav {
+          pointer-events: auto;
+          position: absolute;
+          top: calc(100% + 0.6rem);
+          left: 1rem; right: 1rem;
+          max-width: 520px; margin: 0 auto;
+          display: flex; flex-direction: column; gap: 0.15rem;
+          padding: 0.6rem;
+          background: #111113;
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 20px;
+          box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+          transform-origin: top center;
+          animation: mnavIn 0.3s cubic-bezier(0.16,1,0.3,1);
+        }
+        @keyframes mnavFade { from { opacity: 0; } }
+        @keyframes mnavIn { from { opacity: 0; transform: translateY(-8px) scale(0.98); } }
+
+        .mnav-link {
+          display: flex; align-items: center; gap: 0.9rem;
+          padding: 0.85rem 0.9rem;
+          border-radius: 12px;
+          color: var(--text-secondary);
+          font-size: 1rem; font-weight: 600;
+          transition: background 0.2s ease, color 0.2s ease;
+          animation: mnavItem 0.35s cubic-bezier(0.16,1,0.3,1) both;
+        }
+        @keyframes mnavItem { from { opacity: 0; transform: translateY(-4px); } }
+        .mnav-link:hover, .mnav-link:active { background: rgba(255,255,255,0.04); color: var(--text-primary); }
+        .mnav-link.is-active { background: rgba(255,122,26,0.08); color: var(--text-primary); }
+        .mnav-num {
+          font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+          font-size: 0.7rem; color: rgba(138,138,146,0.7);
+          width: 1.3rem;
+        }
+        .mnav-link.is-active .mnav-num { color: var(--accent); }
+        .mnav-label { flex: 1; }
+        .mnav-arrow { opacity: 0; transform: translateX(-4px); transition: opacity 0.2s ease, transform 0.2s ease; color: var(--accent); }
+        .mnav-link:hover .mnav-arrow, .mnav-link.is-active .mnav-arrow { opacity: 1; transform: none; }
+        .mnav-cta {
+          justify-content: center;
+          margin-top: 0.45rem;
+          padding: 0.85rem 1rem;
+          font-size: 0.9rem;
+          border-radius: 12px;
+          animation: mnavItem 0.35s 0.22s cubic-bezier(0.16,1,0.3,1) both;
+        }
+
         @media (max-width: 900px) {
           .nav-links, .nav-cta { display: none !important; }
-          .nav-burger { display: grid !important; }
+          .nav-burger { display: grid; }
+          .nav-pill {
+            width: 100%;
+            max-width: 520px;
+            justify-content: space-between;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .mnav, .mnav-link, .mnav-cta, .mnav-backdrop, .nav-burger svg { animation: none; }
         }
       `}</style>
     </header>
