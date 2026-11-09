@@ -97,7 +97,7 @@ const SobreMi = () => {
             {stats.map((s) => (
               <div key={s.label}>
                 <div
-                  className="gradient-text"
+                  className="gradient-text stat-num"
                   style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.8rem', fontWeight: 700, lineHeight: 1 }}
                 >
                   <CountUp end={s.end} suffix={s.suffix} start={visible} />
@@ -414,9 +414,40 @@ const SobreMi = () => {
             grid-template-areas: "bio" "stack" "fortalezas" "now";
           }
         }
-        @media (max-width: 420px) {
-          .stack-grid { grid-template-columns: repeat(2, 1fr); }
-          .fortalezas-grid { grid-template-columns: repeat(2, 1fr); }
+        /* ---------- Celular: versión compacta ---------- */
+        @media (max-width: 600px) {
+          #sobremi { padding: 4rem 1rem !important; }
+          .bento { gap: 0.8rem; }
+          .bento > .glass-card { padding: 1.3rem !important; }
+          .bento-bio p { font-size: 0.92rem !important; line-height: 1.7 !important; }
+          .bento-bio .stat-num { font-size: 1.55rem !important; }
+
+          /* Stack: 4 columnas compactas (3 filas en lugar de 6) */
+          .stack-grid { grid-template-columns: repeat(4, 1fr); gap: 0.45rem; }
+          .stack-cell { padding: 0.7rem 0.2rem; gap: 0.35rem; border-radius: 10px; }
+          .stack-cell:hover { transform: none; }
+          .stack-icon svg { width: 20px; height: 20px; }
+          .stack-name { font-size: 0.6rem; line-height: 1.2; white-space: nowrap; }
+          .stack-detail { margin-top: 0.9rem; }
+
+          /* Fortalezas: filas horizontales de 2 columnas */
+          .fortalezas-grid { grid-template-columns: repeat(2, 1fr); gap: 0.45rem; }
+          .fortaleza-cell {
+            flex-direction: row;
+            text-align: left;
+            gap: 0.55rem;
+            padding: 0.7rem 0.75rem;
+            border-radius: 10px;
+          }
+          .fortaleza-cell:hover { transform: none; }
+          .fortaleza-icon { display: grid; flex-shrink: 0; }
+          .fortaleza-icon svg { width: 17px; height: 17px; }
+          .fortaleza-name { font-size: 0.74rem; }
+
+          .now-left { gap: 0.7rem; }
+        }
+        @media (max-width: 360px) {
+          .stack-name { font-size: 0.55rem; }
         }
       `}</style>
     </section>
