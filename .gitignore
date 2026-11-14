@@ -4,3 +4,7 @@ build
 .env
 .env.local
 .vercel
+
+# Hostinger
+clave.php
+portafolio-deploy.zip
