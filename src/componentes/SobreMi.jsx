@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, Puzzle, BookOpen, Users, Target } from 'lucide-react';
 import {
-  FaJava, FaPhp, FaPython, FaReact, FaHtml5, FaCss3Alt, FaGitAlt, FaDatabase,
+  FaJava, FaPhp, FaPython, FaReact, FaGitAlt, FaDatabase,
   FaJsSquare, FaNodeJs, FaRobot, FaLaravel,
 } from 'react-icons/fa';
+import { SiTypescript, SiTailwindcss } from 'react-icons/si';
 import useScrollReveal from '../hooks/useScrollReveal';
 
 const skills = [
@@ -15,8 +16,8 @@ const skills = [
   { name: 'React', icon: <FaReact size={24} />, level: 75 },
   { name: 'JavaScript', icon: <FaJsSquare size={24} />, level: 78 },
   { name: 'Node.js', icon: <FaNodeJs size={24} />, level: 62 },
-  { name: 'HTML5', icon: <FaHtml5 size={24} />, level: 92 },
-  { name: 'CSS3', icon: <FaCss3Alt size={24} />, level: 88 },
+  { name: 'TypeScript', icon: <SiTypescript size={22} />, level: 70 },
+  { name: 'Tailwind CSS', icon: <SiTailwindcss size={24} />, level: 85 },
   { name: 'MySQL', icon: <FaDatabase size={24} />, level: 72 },
   { name: 'Git', icon: <FaGitAlt size={24} />, level: 74 },
 ];
@@ -38,9 +39,9 @@ const fortalezas = [
 ];
 
 const stats = [
-  { end: 4, suffix: '+', label: 'Lenguajes' },
-  { end: 3, suffix: '', label: 'Proyectos activos' },
-  { end: 1, suffix: ' año', label: 'Aprendiendo a diario' },
+  { end: 1, suffix: '', label: 'Proyecto en producción' },
+  { end: 9, suffix: '', label: 'Certificaciones' },
+  { end: 12, suffix: '', label: 'Tecnologías' },
 ];
 
 const CountUp = ({ end, suffix = '', start }) => {
@@ -84,13 +85,16 @@ const SobreMi = () => {
         <article className="glass-card bento-bio" style={cardPad}>
           <span className="kicker">Sobre mí</span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 700, letterSpacing: '-0.5px', marginBottom: '1rem' }}>
-            Convierto <span className="gradient-text">ideas y datos</span> en producto con IA
+            Construyo software que <span className="gradient-text">resuelve problemas reales</span>
           </h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.98rem', lineHeight: 1.8, marginBottom: 'auto' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.98rem', lineHeight: 1.8, marginBottom: '0.9rem' }}>
             Soy <strong style={{ color: 'var(--text-primary)' }}>Andres Camilo Escorcia Roa</strong>, desarrollador
-            de software con enfoque en inteligencia artificial. Construyo
-            aplicaciones de punta a punta e integro modelos de IA para automatizar
-            procesos y sacar más valor de los datos.
+            de software. Me gusta tomar un proceso manual o desordenado y convertirlo en un sistema
+            claro: interfaces cuidadas, un backend seguro y datos bien organizados.
+          </p>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.98rem', lineHeight: 1.8, marginBottom: 'auto' }}>
+            Hoy profundizo en <strong style={{ color: 'var(--text-primary)' }}>inteligencia artificial</strong> para
+            que esas aplicaciones automaticen tareas y ayuden a tomar mejores decisiones.
           </p>
 
           <div style={{ display: 'flex', gap: '1.8rem', flexWrap: 'wrap', marginTop: '1.8rem' }}>

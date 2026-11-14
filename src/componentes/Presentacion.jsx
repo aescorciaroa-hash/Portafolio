@@ -8,8 +8,8 @@ import perfil from '../assets/perfil.png';
 const Presentacion = () => {
   const roles = [
     'Desarrollador de Software',
-    'Implementación de IA',
-    'Analista de Datos',
+    'Integración de Inteligencia Artificial',
+    'Automatización de Procesos',
   ];
   const typewrittenText = useTypewriter(roles, 80, 45, 1800);
 
@@ -28,7 +28,21 @@ const Presentacion = () => {
       }}
     >
 
+      <style>{`
+        /* Celular: nombre y descripción -> foto -> botones y redes */
+        @media (max-width: 860px) {
+          .hero-wrap { flex-direction: column; flex-wrap: nowrap !important; gap: 2.2rem !important; }
+          .hero-text { display: contents; }
+          .hero-intro, .hero-actions { width: 100%; max-width: 540px; }
+          .hero-intro { order: 1; }
+          .hero-photo { order: 2; max-width: 320px !important; }
+          .hero-actions { order: 3; }
+          .hero-intro p:last-child { margin-bottom: 0 !important; }
+          .hero-buttons { margin-bottom: 2rem !important; }
+        }
+      `}</style>
       <div
+        className="hero-wrap"
         style={{
           position: 'relative',
           zIndex: 2,
@@ -47,6 +61,7 @@ const Presentacion = () => {
           className="hero-text"
           style={{ flex: '1 1 400px', maxWidth: '540px', minWidth: '300px' }}
         >
+          <div className="hero-intro">
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', marginBottom: '0.7rem' }}>
             Hola, soy
           </p>
@@ -86,13 +101,14 @@ const Presentacion = () => {
               maxWidth: '460px',
             }}
           >
-            Desarrollador de software enfocado en construir soluciones web
-            funcionales e integrar inteligencia artificial en productos reales.
-            Actualmente profundizo en IA para automatizar procesos y transformar
-            datos en información útil.
+            Desarrollo aplicaciones web completas, de principio a fin, y les integro
+            inteligencia artificial para automatizar procesos. Me enfoco en crear
+            soluciones claras, seguras y fáciles de usar que resuelvan problemas reales.
           </p>
+          </div>
 
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', flexWrap: 'wrap' }}>
+          <div className="hero-actions">
+          <div className="hero-buttons" style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', flexWrap: 'wrap' }}>
             <MagneticButton href="#proyectos" className="btn btn-primary">
               Ver Proyectos <ArrowRight size={16} />
             </MagneticButton>
@@ -143,10 +159,11 @@ const Presentacion = () => {
               ))}
             </div>
           </div>
+          </div>
         </div>
 
         <div
-          className="float"
+          className="float hero-photo"
           style={{
             flex: '1 1 320px',
             display: 'flex',

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Code2, ArrowRight, Menu, X } from 'lucide-react';
-
 const links = [
   { href: '#presentacion', label: 'Inicio' },
   { href: '#sobremi', label: 'Sobre mí' },
@@ -67,7 +66,7 @@ const Header = () => {
       }}
     >
       <div
-        className="nav-pill"
+        className={`nav-pill ${menuOpen ? 'is-open' : ''}`}
         style={{
           pointerEvents: 'auto',
           position: 'relative',
@@ -164,36 +163,34 @@ const Header = () => {
         >
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
-      </div>
 
-      {/* menú móvil (fuera de la píldora para que el fondo sólido y la animación funcionen) */}
-      {menuOpen && (
-        <>
-          <div className="mnav-backdrop" onClick={() => setMenuOpen(false)} aria-hidden="true" />
-          <nav id="menu-movil" className="mnav" aria-label="Menú principal">
-            {links.map((l, i) => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setMenuOpen(false)}
-                className={`mnav-link ${active === l.href ? 'is-active' : ''}`}
-                style={{ animationDelay: `${0.04 + i * 0.035}s` }}
-              >
-                <span className="mnav-num">0{i + 1}</span>
-                <span className="mnav-label">{l.label}</span>
-                <ArrowRight size={16} className="mnav-arrow" />
-              </a>
-            ))}
+        {/* menú móvil: la misma barra se expande como tarjeta */}
+        {menuOpen && (
+          <div id="menu-movil" className="mnav">
+            <nav className="mnav-links" aria-label="Menú principal">
+              {links.filter((l) => l.href !== '#presentacion').map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMenuOpen(false)}
+                  className={`mnav-link ${active === l.href ? 'is-active' : ''}`}
+                >
+                  {l.label}
+                </a>
+              ))}
+            </nav>
             <a
               href="#contacto"
               onClick={() => setMenuOpen(false)}
               className="btn btn-primary mnav-cta"
             >
-              Contáctame <ArrowRight size={15} />
+              Contáctame <ArrowRight size={16} />
             </a>
-          </nav>
-        </>
-      )}
+          </div>
+        )}
+      </div>
+
+      {menuOpen && <div className="mnav-backdrop" onClick={() => setMenuOpen(false)} aria-hidden="true" />}
 
       <style>{`
         .nav-burger {
@@ -212,60 +209,62 @@ const Header = () => {
         .nav-burger svg { animation: navIcon 0.25s ease; }
         @keyframes navIcon { from { transform: rotate(-90deg) scale(0.6); opacity: 0; } }
 
+        /* ---------- Menú móvil: la píldora se expande ---------- */
         .mnav-backdrop {
           position: fixed; inset: 0; z-index: -1;
           pointer-events: auto;
-          background: rgba(5,5,6,0.6);
-          backdrop-filter: blur(6px);
-          -webkit-backdrop-filter: blur(6px);
-          animation: mnavFade 0.25s ease;
+          background: transparent;
+        }
+        body:has(#menu-movil) .cb-fab, body:has(#menu-movil) .cb-panel { display: none !important; }
+
+        .nav-pill.is-open {
+          flex-wrap: wrap;
+          row-gap: 0 !important; /* el gap en línea (1.6rem) también separaba las filas */
+          border-radius: 28px !important;
+          padding: 0.5rem 0.5rem 0.75rem 1.1rem !important;
+          background: rgba(14,14,16,0.94) !important;
+          box-shadow: 0 24px 70px rgba(0,0,0,0.6) !important;
         }
         .mnav {
-          pointer-events: auto;
-          position: absolute;
-          top: calc(100% + 0.6rem);
-          left: 1rem; right: 1rem;
-          max-width: 520px; margin: 0 auto;
-          display: flex; flex-direction: column; gap: 0.15rem;
-          padding: 0.6rem;
-          background: #111113;
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 20px;
-          box-shadow: 0 24px 60px rgba(0,0,0,0.6);
-          transform-origin: top center;
+          flex-basis: 100%;
+          display: flex; flex-direction: column; gap: 0.75rem;
+          margin: 0.5rem 0 0 -0.6rem; /* mismo margen a ambos lados */
+          padding-top: 0.75rem;
+          border-top: 1px solid rgba(255,255,255,0.07);
           animation: mnavIn 0.3s cubic-bezier(0.16,1,0.3,1);
         }
-        @keyframes mnavFade { from { opacity: 0; } }
-        @keyframes mnavIn { from { opacity: 0; transform: translateY(-8px) scale(0.98); } }
+        @keyframes mnavIn { from { opacity: 0; transform: translateY(-6px); } }
 
+        .mnav-links {
+          display: flex;
+          padding: 0.35rem;
+          border-radius: 18px;
+          border: 1px solid rgba(255,255,255,0.08);
+          background: rgba(255,255,255,0.03);
+        }
         .mnav-link {
-          display: flex; align-items: center; gap: 0.9rem;
-          padding: 0.85rem 0.9rem;
-          border-radius: 12px;
+          flex: 1 1 auto;
+          text-align: center;
+          padding: 0.8rem 0.4rem;
+          border-radius: 14px;
+          font-size: 0.82rem;
+          font-weight: 600;
           color: var(--text-secondary);
-          font-size: 1rem; font-weight: 600;
-          transition: background 0.2s ease, color 0.2s ease;
-          animation: mnavItem 0.35s cubic-bezier(0.16,1,0.3,1) both;
+          white-space: nowrap;
+          transition: color 0.2s ease, background 0.2s ease;
         }
-        @keyframes mnavItem { from { opacity: 0; transform: translateY(-4px); } }
-        .mnav-link:hover, .mnav-link:active { background: rgba(255,255,255,0.04); color: var(--text-primary); }
-        .mnav-link.is-active { background: rgba(255,122,26,0.08); color: var(--text-primary); }
-        .mnav-num {
-          font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-          font-size: 0.7rem; color: rgba(138,138,146,0.7);
-          width: 1.3rem;
-        }
-        .mnav-link.is-active .mnav-num { color: var(--accent); }
-        .mnav-label { flex: 1; }
-        .mnav-arrow { opacity: 0; transform: translateX(-4px); transition: opacity 0.2s ease, transform 0.2s ease; color: var(--accent); }
-        .mnav-link:hover .mnav-arrow, .mnav-link.is-active .mnav-arrow { opacity: 1; transform: none; }
+        .mnav-link:hover, .mnav-link:active { color: var(--text-primary); }
+        .mnav-link.is-active { color: var(--text-primary); background: rgba(255,255,255,0.07); }
+
         .mnav-cta {
           justify-content: center;
-          margin-top: 0.45rem;
-          padding: 0.85rem 1rem;
-          font-size: 0.9rem;
-          border-radius: 12px;
-          animation: mnavItem 0.35s 0.22s cubic-bezier(0.16,1,0.3,1) both;
+          padding: 0.95rem 1rem;
+          font-size: 0.95rem;
+          border-radius: 999px;
+          box-shadow: 0 10px 30px rgba(255,122,26,0.35);
+        }
+        @media (max-width: 360px) {
+          .mnav-link { font-size: 0.74rem; padding: 0.75rem 0.25rem; }
         }
 
         @media (max-width: 900px) {
@@ -278,7 +277,7 @@ const Header = () => {
           }
         }
         @media (prefers-reduced-motion: reduce) {
-          .mnav, .mnav-link, .mnav-cta, .mnav-backdrop, .nav-burger svg { animation: none; }
+          .mnav, .nav-burger svg { animation: none; }
         }
       `}</style>
     </header>

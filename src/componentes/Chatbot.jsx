@@ -31,7 +31,7 @@ const respuestas = [
   {
     id: 'perfil',
     keys: ['quien', 'eres', 'sobre ti', 'sobre el', 'perfil', 'presentate'],
-    text: '**Andres Camilo Escorcia Roa** es desarrollador de software enfocado en soluciones web funcionales e integración de **inteligencia artificial** en productos reales.\n\nActualmente profundiza en IA para automatizar procesos y transformar datos en información útil.',
+    text: '**Andres Camilo Escorcia Roa** es **desarrollador de software**: construye aplicaciones web completas con React, PHP y MySQL, y les integra **inteligencia artificial** para automatizar procesos.\n\nSu proyecto más reciente, CopiwayPRO, ya está en producción.',
     action: { label: 'Ver sobre mí', target: 'sobremi' },
     follow: ['¿Qué estudia?', '¿Qué tecnologías usa?'],
   },
@@ -57,7 +57,7 @@ const respuestas = [
   {
     id: 'stack',
     keys: ['tecnolog', 'stack', 'lenguaje', 'habilidad', 'skills', 'sabe', 'usa', 'herramienta', 'programa en'],
-    text: '**Backend:** Java, Python, PHP, Laravel, Node.js\n**Frontend:** JavaScript, React, HTML5, CSS3, Tailwind CSS\n**Datos y más:** MySQL, Git, IA / LLMs',
+    text: '**Backend:** Java, Python, PHP, Laravel, Node.js\n**Frontend:** JavaScript, TypeScript, React, HTML5, CSS3, Tailwind CSS\n**Datos y más:** MySQL, Git, IA / LLMs',
     action: { label: 'Ver habilidades', target: 'sobremi' },
     follow: ['¿Qué está aprendiendo?', 'Proyectos'],
   },
@@ -70,7 +70,7 @@ const respuestas = [
   {
     id: 'proyectos',
     keys: ['proyecto', 'copiway', 'portafolio', 'trabajo', 'hecho', 'construido', 'experiencia'],
-    text: 'Su proyecto principal es **CopiwayPRO**: un sistema web para administrar una dark kitchen (menú, pedidos y clientes), con landing pública para pedidos y panel de administración.\n\nHecho con Laravel, PHP, MySQL y JavaScript — ya está terminado y en línea en https://www.copiwaypro.com',
+    text: 'Su proyecto principal es **CopiwayPRO**: un sistema de gestión para una dark kitchen de hamburguesas a domicilio, con 5 roles (cliente, cocina, domiciliario, administrador y programador).\n\nIncluye pedidos en línea con armador de hamburguesas, pagos digitales, tablero de cocina, mapa de entregas con PIN, inventario automático, puntos de fidelidad y cierre de caja con reportes PDF.\n\nHecho con React, TypeScript, Tailwind CSS, PHP 8 (MVC sin framework) y MySQL. Ya está en línea en https://www.copiwaypro.com',
     action: { label: 'Ver proyectos', target: 'proyectos' },
     follow: ['¿Qué tecnologías usa?', '¿Cómo lo contacto?'],
   },
@@ -121,8 +121,24 @@ const responderLocal = (texto) => {
   return mejor || fallback;
 };
 
+// ---- Ahorro de tokens ----
+// 1) Lo que la base local reconoce se responde sin llamar a la IA (0 tokens).
+// 2) Las preguntas repetidas se responden desde memoria.
+// 3) Máximo de llamadas a la IA por visita; después, solo respuestas locales.
+const MAX_LLAMADAS_IA = 5;
+let llamadasIA = 0;
+const cacheIA = new Map();
+
 const obtenerRespuesta = async (texto, historial) => {
-  if (!CHAT_ENDPOINT) return responderLocal(texto);
+  const local = responderLocal(texto);
+  if (!CHAT_ENDPOINT || local !== fallback) return local;
+  if (texto.trim().length < 4) return local;
+
+  const clave = normalizar(texto).replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim();
+  if (cacheIA.has(clave)) return cacheIA.get(clave);
+  if (llamadasIA >= MAX_LLAMADAS_IA) return local;
+  llamadasIA += 1;
+
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 25000);
   try {
@@ -130,12 +146,11 @@ const obtenerRespuesta = async (texto, historial) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        message: texto,
-        history: historial.slice(-10).map(({ from, text }) => ({ from, text })),
+        message: texto.slice(0, 300),
+        history: historial.slice(-2).map(({ from, text }) => ({ from, text: text.slice(0, 280) })),
       }),
       signal: ctrl.signal,
     });
-    const local = responderLocal(texto);
     if (res.status === 429 || res.status === 400) {
       const data = await res.json();
       if (data.reply) return { text: data.reply };
@@ -144,7 +159,9 @@ const obtenerRespuesta = async (texto, historial) => {
     const data = await res.json();
     if (!data.reply) throw new Error('empty reply');
     // La IA escribe la respuesta; las sugerencias de seguimiento salen de la base local
-    return { text: data.reply, action: data.action, follow: local.follow };
+    const respuesta = { text: data.reply, action: data.action, follow: local.follow };
+    cacheIA.set(clave, respuesta);
+    return respuesta;
   } catch (e) {
     return responderLocal(texto);
   } finally {
@@ -308,7 +325,7 @@ const Chatbot = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Escribe tu pregunta..."
-                maxLength={500}
+                maxLength={300}
                 aria-label="Tu mensaje"
               />
               <button type="submit" disabled={!input.trim() || typing} aria-label="Enviar">
@@ -412,7 +429,7 @@ const Chatbot = () => {
         .cb-online {
           position: absolute; right: -2px; bottom: -2px;
           width: 11px; height: 11px; border-radius: 50%;
-          background: #22c55e;
+          background: var(--accent-3);
           border: 2px solid #121214;
         }
         .cb-head-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.1rem; }
@@ -590,7 +607,40 @@ const Chatbot = () => {
         @media (max-width: 480px) {
           .cb-fab { right: 1rem; bottom: 1rem; }
           .cb-fab-tip { display: none; }
-          .cb-panel { right: 1rem; bottom: 5rem; height: min(560px, calc(100vh - 6.5rem)); }
+          /* panel compacto: deja ver parte de la página detrás */
+          .cb-panel {
+            right: 0.75rem; left: 0.75rem; bottom: 4.9rem;
+            width: auto;
+            height: min(440px, 62vh);
+            height: min(440px, 62dvh);
+            border-radius: 18px;
+          }
+          .cb-head { padding: 0.65rem 0.7rem 0.65rem 0.85rem; gap: 0.6rem; }
+          .cb-avatar { width: 32px !important; height: 32px !important; border-radius: 10px; }
+          .cb-avatar svg { width: 17px; height: 17px; }
+          .cb-head-text strong { font-size: 0.88rem; }
+          .cb-body { padding: 0.8rem !important; gap: 0.7rem !important; }
+          .cb-msg { font-size: 0.82rem !important; padding: 0.65rem 0.85rem !important; }
+
+          /* sugerencias: una fila deslizable de botones pequeños */
+          .cb-start p { margin-bottom: 0.45rem !important; font-size: 0.62rem !important; }
+          .cb-start-grid {
+            display: flex; gap: 0.4rem;
+            overflow-x: auto; scrollbar-width: none;
+            margin: 0 -0.8rem; padding: 0 0.8rem 0.1rem;
+          }
+          .cb-start-grid::-webkit-scrollbar { display: none; }
+          .cb-start-grid button {
+            flex-direction: row !important; align-items: center !important;
+            gap: 0.35rem !important;
+            flex-shrink: 0; white-space: nowrap;
+            padding: 0.5rem 0.8rem !important;
+            border-radius: 999px !important;
+            font-size: 0.76rem !important;
+          }
+          .cb-start-grid button span { font-size: 0.85rem !important; }
+          .cb-form { padding: 0.55rem 0.7rem 0.7rem; }
+          .cb-input input { font-size: 16px; } /* evita el zoom automático en iPhone */
         }
         @media (prefers-reduced-motion: reduce) {
           .cb-fab::before, .cb-row, .cb-panel, .cb-start, .cb-follow { animation: none; }

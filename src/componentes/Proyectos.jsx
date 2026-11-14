@@ -1,29 +1,17 @@
 import React, { useRef } from 'react';
-import { Github, ExternalLink, Hammer } from 'lucide-react';
+import { Github, ExternalLink, Hammer, Globe } from 'lucide-react';
 import Reveal from './Reveal';
-import copiwaypro from '../assets/copiwaypro.png';
-import mitiendapro from '../assets/mitiendapro.png';
-
+import copiwaypro from '../assets/copiwaypro.jpg';
 const proyectos = [
   {
     title: 'CopiwayPRO',
     description:
-      'Sistema web para administrar una dark kitchen: gestión de menú, pedidos y clientes. Landing pública para hacer pedidos y panel de administración interno.',
-    tags: ['Laravel', 'PHP', 'MySQL', 'JavaScript'],
+      'Sistema de gestión para una dark kitchen de hamburguesas a domicilio, con 5 roles (cliente, cocina, domiciliario, administrador y programador). Pedidos en línea con armador de hamburguesas, pagos con Nequi/Daviplata/Bancolombia, tablero de cocina, mapa de entregas con PIN, inventario automático, puntos de fidelidad y cierre de caja con reportes PDF.',
+    tags: ['React', 'TypeScript', 'Tailwind CSS', 'PHP 8 (MVC)', 'MySQL', 'API REST'],
     githubUrl: 'https://github.com/aescorciaroa-hash/copiwaypro',
     liveUrl: 'https://www.copiwaypro.com',
     image: copiwaypro,
     inProgress: false,
-  },
-  {
-    title: 'MiTiendaPRO',
-    description:
-      'Sistema POS 2.0 online inteligente para administración simplificada de tiendas. Optimiza operaciones, agiliza ventas, control de inventario e integra inteligencia artificial.',
-    tags: ['React', 'TypeScript', 'TailwindCSS', 'IA / Gemini', 'Node.js'],
-    githubUrl: 'https://github.com/aescorciaroa-hash/MiTiendaPRO',
-    liveUrl: '',
-    image: mitiendapro,
-    inProgress: true,
   },
 ];
 
@@ -108,14 +96,16 @@ const TiltCard = ({ p }) => {
               alignItems: 'center',
               gap: '0.35rem',
               fontSize: '0.68rem',
-              color: '#4ade80',
-              border: '1px solid rgba(74,222,128,0.45)',
+              color: 'var(--accent-2)',
+              background: 'var(--accent-soft)',
+              border: '1px solid rgba(255,122,26,0.35)',
               borderRadius: '20px',
-              padding: '0.2rem 0.6rem',
+              padding: '0.2rem 0.65rem',
               whiteSpace: 'nowrap',
+              fontWeight: 600,
             }}
           >
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80' }} /> En línea
+            <Globe size={11} /> En producción
           </span>
         )}
       </div>
@@ -183,8 +173,8 @@ const Proyectos = () => {
         </Reveal>
         <Reveal delay={160}>
           <p style={{ color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto 3rem' }}>
-            Proyectos que ya están en producción y otros en los que sigo trabajando.
-            Aquí irán apareciendo a medida que los termine.
+            Proyectos que ya están en producción. Aquí irán apareciendo
+            nuevos a medida que los termine.
           </p>
         </Reveal>
       </div>
