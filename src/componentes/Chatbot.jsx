@@ -8,6 +8,7 @@ const CHAT_ENDPOINT = process.env.REACT_APP_CHAT_ENDPOINT ?? '/api/chat';
 
 const EMAIL = 'andrescamilodev@gmail.com';
 const LINKEDIN = 'https://www.linkedin.com/in/ingenieroandres';
+const TELEFONO = '+57 311 248 7793';
 const GITHUB = 'https://github.com/aescorciaroa-hash';
 
 const BIENVENIDA = '¡Hola! 👋 Soy el asistente del portafolio de **Andres**. Pregúntame lo que quieras sobre su perfil, proyectos o experiencia.';
@@ -69,7 +70,7 @@ const respuestas = [
   {
     id: 'proyectos',
     keys: ['proyecto', 'copiway', 'portafolio', 'trabajo', 'hecho', 'construido', 'experiencia'],
-    text: 'Su proyecto principal es **CopiwayPRO**: un sistema web para administrar una dark kitchen (menú, pedidos y clientes), con landing pública para pedidos y panel de administración.\n\nHecho con Laravel, PHP, MySQL y JavaScript — actualmente en progreso.',
+    text: 'Su proyecto principal es **CopiwayPRO**: un sistema web para administrar una dark kitchen (menú, pedidos y clientes), con landing pública para pedidos y panel de administración.\n\nHecho con Laravel, PHP, MySQL y JavaScript — ya está terminado y en línea en https://www.copiwaypro.com',
     action: { label: 'Ver proyectos', target: 'proyectos' },
     follow: ['¿Qué tecnologías usa?', '¿Cómo lo contacto?'],
   },
@@ -81,8 +82,8 @@ const respuestas = [
   },
   {
     id: 'contacto',
-    keys: ['contact', 'correo', 'email', 'mail', 'escribir', 'escribe', 'linkedin', 'github', 'redes', 'hablar', 'contratar', 'vacante', 'disponible'],
-    text: `Puedes escribirle a ${EMAIL}\n\nLinkedIn: ${LINKEDIN}\nGitHub: ${GITHUB}\n\nSuele responder en menos de **24 horas**.`,
+    keys: ['contact', 'correo', 'email', 'mail', 'escribir', 'escribe', 'linkedin', 'github', 'redes', 'hablar', 'contratar', 'vacante', 'disponible', 'telefono', 'teléfono', 'celular', 'numero', 'número', 'whatsapp', 'llamar', 'llamada'],
+    text: `Puedes escribirle a ${EMAIL}\n\nWhatsApp o llamada: ${TELEFONO}\nLinkedIn: ${LINKEDIN}\nGitHub: ${GITHUB}\n\nSuele responder en menos de **24 horas**.`,
     action: { label: 'Ir al formulario', target: 'contacto' },
     follow: ['¿Quién es Andres?', 'Proyectos'],
   },

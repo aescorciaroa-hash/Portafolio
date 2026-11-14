@@ -10,10 +10,10 @@ const proyectos = [
     description:
       'Sistema web para administrar una dark kitchen: gestión de menú, pedidos y clientes. Landing pública para hacer pedidos y panel de administración interno.',
     tags: ['Laravel', 'PHP', 'MySQL', 'JavaScript'],
-    githubUrl: 'https://github.com/aescorciaroa-hash/CopiwayPRO',
-    liveUrl: '',
+    githubUrl: 'https://github.com/aescorciaroa-hash/copiwaypro',
+    liveUrl: 'https://www.copiwaypro.com',
     image: copiwaypro,
-    inProgress: true,
+    inProgress: false,
   },
   {
     title: 'MiTiendaPRO',
@@ -101,6 +101,23 @@ const TiltCard = ({ p }) => {
             <Hammer size={11} /> En progreso
           </span>
         )}
+        {!p.inProgress && p.liveUrl && (
+          <span
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.35rem',
+              fontSize: '0.68rem',
+              color: '#4ade80',
+              border: '1px solid rgba(74,222,128,0.45)',
+              borderRadius: '20px',
+              padding: '0.2rem 0.6rem',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80' }} /> En línea
+          </span>
+        )}
       </div>
 
       <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.65, flexGrow: 1 }}>
@@ -136,7 +153,7 @@ const TiltCard = ({ p }) => {
         )}
         {p.liveUrl && (
           <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" style={linkStyle}>
-            <ExternalLink size={15} /> Demo
+            <ExternalLink size={15} /> Ver sitio
           </a>
         )}
       </div>
@@ -166,8 +183,8 @@ const Proyectos = () => {
         </Reveal>
         <Reveal delay={160}>
           <p style={{ color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto 3rem' }}>
-            Actualmente estoy trabajando en varios proyectos. Aquí irán apareciendo
-            a medida que los termine.
+            Proyectos que ya están en producción y otros en los que sigo trabajando.
+            Aquí irán apareciendo a medida que los termine.
           </p>
         </Reveal>
       </div>

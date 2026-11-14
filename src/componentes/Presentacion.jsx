@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaWhatsapp } from 'react-icons/fa';
 import useTypewriter from '../hooks/useTypewriter';
 import MagneticButton from './MagneticButton';
 import perfil from '../assets/perfil.png';
@@ -107,6 +107,7 @@ const Presentacion = () => {
               {[
                 { icon: <FaGithub size={17} />, url: 'https://github.com/aescorciaroa-hash' },
                 { icon: <FaLinkedin size={17} />, url: 'https://www.linkedin.com/in/ingenieroandres' },
+                { icon: <FaWhatsapp size={17} />, url: 'https://wa.me/573112487793' },
                 { icon: <FaEnvelope size={17} />, url: 'mailto:andrescamilodev@gmail.com' },
               ].map((s, i) => (
                 <a
@@ -217,33 +218,6 @@ const Presentacion = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '2rem',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '0.5rem',
-          color: 'var(--text-secondary)',
-          fontSize: '0.7rem',
-          letterSpacing: '2px',
-          textTransform: 'uppercase',
-          zIndex: 2,
-        }}
-      >
-        Scroll
-        <span
-          style={{
-            width: 1,
-            height: 40,
-            background: 'linear-gradient(var(--accent-2), transparent)',
-          }}
-        />
       </div>
     </section>
   );

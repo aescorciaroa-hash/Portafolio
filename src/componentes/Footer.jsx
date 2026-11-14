@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaWhatsapp } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -25,6 +25,7 @@ const Footer = () => {
         {[
           { icon: <FaGithub size={17} />, url: 'https://github.com/aescorciaroa-hash' },
           { icon: <FaLinkedin size={17} />, url: 'https://www.linkedin.com/in/ingenieroandres' },
+          { icon: <FaWhatsapp size={17} />, url: 'https://wa.me/573112487793' },
           { icon: <FaEnvelope size={17} />, url: 'mailto:andrescamilodev@gmail.com' },
         ].map((s, i) => (
           <a
