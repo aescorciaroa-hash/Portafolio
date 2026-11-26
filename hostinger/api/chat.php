@@ -1,7 +1,7 @@
 <?php
 // Version PHP de api/chat.js para Hostinger (hosting compartido, sin Node.js).
 // Conecta el chatbot del portafolio con Claude. La API key vive SOLO en el servidor:
-// en api/clave.php (copia clave.example.php) o en la variable de entorno ANTHROPIC_API_KEY.
+// en clave.php junto a public_html (NO dentro), o en la variable de entorno ANTHROPIC_API_KEY.
 // POST { message, history: [{ from: 'user'|'bot', text }] } -> { reply, action? }
 
 header('Content-Type: application/json; charset=utf-8');
@@ -78,9 +78,12 @@ if (count($recientes) > LIMITE) {
 }
 
 // --- Clave de la API --------------------------------------------------------
+// Orden: variable de entorno -> clave.php FUERA de public_html (el deploy por Git
+// no la toca) -> api/clave.php (se borra en cada deploy, solo como respaldo).
 $clave = getenv('ANTHROPIC_API_KEY') ?: '';
-if ($clave === '' && is_file(__DIR__ . '/clave.php')) {
-    $clave = (string) require __DIR__ . '/clave.php';
+foreach ([dirname(__DIR__, 2) . '/clave.php', __DIR__ . '/clave.php'] as $archivoClave) {
+    if ($clave !== '') break;
+    if (is_file($archivoClave)) $clave = (string) require $archivoClave;
 }
 $clave = trim($clave);
 if ($clave === '') {
