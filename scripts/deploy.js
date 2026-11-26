@@ -2,8 +2,9 @@
 // rama "deploy". Hostinger (hPanel > GIT, auto-deploy) toma esa rama y publica
 // ingenieroandres.dev.
 //
-// Uso:  npm run deploy            -> despliega HEAD
-//       node scripts/deploy.js SHA -> despliega ese commit (lo usa .githooks/pre-push)
+// Normalmente NO hace falta: GitHub Actions despliega en cada push a main.
+// Uso:  npm run deploy            -> despliega HEAD (respaldo manual)
+//       node scripts/deploy.js SHA -> despliega ese commit
 //
 // Compila en una copia temporal del commit (git worktree), asi los cambios sin commit
 // nunca se publican.

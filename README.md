@@ -66,14 +66,14 @@ src/
 
 ## 5. Deploy (Hostinger · ingenieroandres.dev)
 
-Cada `git push` a `main` desde este PC se publica solo: el hook `.githooks/pre-push`
-corre `npm run deploy`, que compila el commit, le agrega `hostinger/` (`.htaccess` y el
-chatbot en PHP) y lo sube a la rama `deploy`. Hostinger (hPanel → GIT, auto-deploy)
-toma esa rama y la publica en `public_html` en unos segundos.
+Cada `git push` a `main` se publica solo: GitHub Actions
+(`.github/workflows/deploy-hostinger.yml`) compila el sitio, le agrega `hostinger/`
+(`.htaccess` y el chatbot en PHP) y lo sube a la rama `deploy`. Hostinger (hPanel → GIT,
+auto-deploy) toma esa rama y la publica en `public_html` en unos segundos.
 
-- Activar el hook en un PC nuevo: `git config core.hooksPath .githooks`
-- Publicar a mano: `npm run deploy`
+- Ver el progreso: pestaña **Actions** del repo en GitHub.
 - Ver qué versión está en vivo: https://ingenieroandres.dev/version.txt
+- Publicar a mano desde el PC (respaldo si Actions falla): `npm run deploy`
 - La API key de Anthropic va en `clave.php` en la carpeta que **contiene** a
-  `public_html` (no dentro: el deploy borra `public_html`). Ver
+  `public_html` (no dentro: el deploy reemplaza `public_html`). Ver
   `hostinger/api/clave.example.php`.
