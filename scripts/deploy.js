@@ -24,6 +24,8 @@ run('npm run build');
 console.log('\n> Copiando archivos de hostinger/ (.htaccess + chatbot PHP)...');
 fs.cpSync(path.join(raiz, 'hostinger'), build, { recursive: true });
 fs.rmSync(path.join(build, 'api', 'clave.php'), { force: true }); // por si acaso
+// Para saber que version esta en vivo: https://ingenieroandres.dev/version.txt
+fs.writeFileSync(path.join(build, 'version.txt'), `${commit} ${new Date().toISOString()}\n`);
 
 console.log('\n> Subiendo build/ a la rama deploy...');
 ghpages.publish(
