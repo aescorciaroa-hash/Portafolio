@@ -61,18 +61,19 @@ src/
    - "Actualiza Proyectos.jsx con esta info: [pega tus proyectos reales]"
    - "Agrega una sección de experiencia laboral entre SobreMi y Habilidades"
    - "Cambia el color de acento (--accent) en index.css por #2ecc71"
-   - "Prepara el proyecto para desplegarlo en Vercel"
 6. Después de cada cambio, corre `npm start` y revisa en el navegador.
-7. Cuando esté listo: `npm run build` genera la versión de producción en
-   la carpeta `build/`, lista para subir a Vercel, Netlify o GitHub Pages.
+7. Cuando esté listo, haz commit y `git push`: se publica solo (ver sección 5).
 
-## 5. Deploy rápido (Vercel)
+## 5. Deploy (Hostinger · ingenieroandres.dev)
 
-```bash
-npm install -g vercel
-vercel
-```
+Cada `git push` a `main` desde este PC se publica solo: el hook `.githooks/pre-push`
+corre `npm run deploy`, que compila el commit, le agrega `hostinger/` (`.htaccess` y el
+chatbot en PHP) y lo sube a la rama `deploy`. Hostinger (hPanel → GIT, auto-deploy)
+toma esa rama y la publica en `public_html` en unos segundos.
 
-Sigue las instrucciones en pantalla (te pedirá conectar tu cuenta de
-GitHub/Vercel). También puedes pedirle a Claude Code que te guíe paso a
-paso en el momento del deploy.
+- Activar el hook en un PC nuevo: `git config core.hooksPath .githooks`
+- Publicar a mano: `npm run deploy`
+- Ver qué versión está en vivo: https://ingenieroandres.dev/version.txt
+- La API key de Anthropic va en `clave.php` en la carpeta que **contiene** a
+  `public_html` (no dentro: el deploy borra `public_html`). Ver
+  `hostinger/api/clave.example.php`.

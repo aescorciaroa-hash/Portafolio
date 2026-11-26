@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { MessageCircle, X, ArrowUp, Bot, RotateCcw, ArrowRight, Sparkles } from 'lucide-react';
 
-// Endpoint serverless (api/chat.js) que responde con Claude. La API key vive en el servidor.
-// Si falla o no existe (p. ej. con `npm start` sin `vercel dev`), el bot usa la
-// base de conocimiento local de abajo como respaldo.
+// Endpoint en Hostinger (hostinger/api/chat.php) que responde con Claude. La API key vive
+// solo en el servidor. Si falla o no existe (p. ej. con `npm start` en local), el bot usa
+// la base de conocimiento local de abajo como respaldo.
 const CHAT_ENDPOINT = process.env.REACT_APP_CHAT_ENDPOINT ?? '/api/chat';
 
 const EMAIL = 'andrescamilodev@gmail.com';

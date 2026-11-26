@@ -2,7 +2,7 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # El frontend llama a /api/chat (como en Vercel) -> api/chat.php
+    # El frontend llama a /api/chat -> api/chat.php
     RewriteRule ^api/chat/?$ api/chat.php [L]
 </IfModule>
 
