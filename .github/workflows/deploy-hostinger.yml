@@ -5,9 +5,10 @@
 # api/clave.php vive solo en el servidor (no esta en git), asi que no se toca.
 name: Build para Hostinger
 
+# Por ahora solo manual (la cuenta tiene Actions bloqueado por billing).
+# Para volver al automatico, agrega:  push: { branches: [main] }
+# Mientras tanto se despliega desde el PC con:  npm run deploy
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
