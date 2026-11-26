@@ -1,14 +1,14 @@
 # Cada push a main compila el portafolio y deja el sitio listo en la rama "deploy".
 # Hostinger (hPanel > Avanzado > GIT) esta conectado a esa rama con auto-deploy,
 # asi que cada cambio en main termina publicado en ingenieroandres.dev.
+# (Respaldo manual desde el PC: npm run deploy, hace lo mismo.)
 #
-# api/clave.php vive solo en el servidor (no esta en git), asi que no se toca.
+# La clave de Anthropic vive en clave.php FUERA de public_html (no esta en git).
 name: Build para Hostinger
 
-# Por ahora solo manual (la cuenta tiene Actions bloqueado por billing).
-# Para volver al automatico, agrega:  push: { branches: [main] }
-# Mientras tanto se despliega desde el PC con:  npm run deploy
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -37,8 +37,11 @@ jobs:
         env:
           CI: false # que los warnings de ESLint no rompan el build
 
-      - name: Agregar archivos de Hostinger (.htaccess + chatbot PHP)
-        run: cp -r hostinger/. build/
+      - name: Agregar archivos de Hostinger (.htaccess + chatbot PHP) y version.txt
+        run: |
+          cp -r hostinger/. build/
+          rm -f build/api/clave.php
+          echo "${GITHUB_SHA::7} $(date -u +%Y-%m-%dT%H:%M:%SZ)" > build/version.txt
 
       - name: Publicar en la rama deploy
         uses: peaceiris/actions-gh-pages@v4
