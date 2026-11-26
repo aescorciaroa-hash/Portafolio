@@ -28,7 +28,14 @@ fs.rmSync(path.join(build, 'api', 'clave.php'), { force: true }); // por si acas
 console.log('\n> Subiendo build/ a la rama deploy...');
 ghpages.publish(
   build,
-  { branch: 'deploy', dotfiles: true, message: `Deploy ${commit}`, history: true },
+  {
+    branch: 'deploy',
+    dotfiles: true,
+    // borrar TODO lo anterior, incluidos dotfiles (.htaccess, .github, ...)
+    remove: ['**/*', '.*', '**/.*', '.*/**'],
+    message: `Deploy ${commit}`,
+    history: true,
+  },
   (err) => {
     if (err) {
       console.error('\nError al subir la rama deploy:', err.message || err);
