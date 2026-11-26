@@ -1,0 +1,10 @@
+node_modules
+build
+.DS_Store
+.env
+.env.local
+.vercel
+
+# Hostinger
+clave.php
+portafolio-deploy.zip

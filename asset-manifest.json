@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6acf7628.css",
+    "main.js": "/static/js/main.60e59549.js",
+    "static/media/perfil.png": "/static/media/perfil.dd008bdd5a5805dcb252.png",
+    "static/media/copiwaypro.jpg": "/static/media/copiwaypro.8cbaddfb8384755d5fb6.jpg",
+    "index.html": "/index.html",
+    "main.6acf7628.css.map": "/static/css/main.6acf7628.css.map",
+    "main.60e59549.js.map": "/static/js/main.60e59549.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6acf7628.css",
+    "static/js/main.60e59549.js"
+  ]
+}
