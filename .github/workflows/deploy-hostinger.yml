@@ -1,0 +1,48 @@
+# Cada push a main compila el portafolio y deja el sitio listo en la rama "deploy".
+# Hostinger (hPanel > Avanzado > GIT) esta conectado a esa rama con auto-deploy,
+# asi que cada cambio en main termina publicado en ingenieroandres.dev.
+#
+# api/clave.php vive solo en el servidor (no esta en git), asi que no se toca.
+name: Build para Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-hostinger
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar React
+        run: npm run build
+        env:
+          CI: false # que los warnings de ESLint no rompan el build
+
+      - name: Agregar archivos de Hostinger (.htaccess + chatbot PHP)
+        run: cp -r hostinger/. build/
+
+      - name: Publicar en la rama deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          publish_branch: deploy
+          commit_message: "Deploy ${{ github.sha }}"
