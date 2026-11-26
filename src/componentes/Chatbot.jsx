@@ -31,7 +31,7 @@ const respuestas = [
   {
     id: 'perfil',
     keys: ['quien', 'eres', 'sobre ti', 'sobre el', 'perfil', 'presentate'],
-    text: '**Andres Camilo Escorcia Roa** es **desarrollador de software**: construye aplicaciones web completas con React, PHP y MySQL, y les integra **inteligencia artificial** para automatizar procesos.\n\nSu proyecto más reciente, CopiwayPRO, ya está en producción.',
+    text: '**Andres Camilo Escorcia Roa** es **desarrollador de software**: construye aplicaciones web completas con React, PHP y MySQL, y les integra **inteligencia artificial** para automatizar procesos.\n\nTiene dos proyectos en producción: CopiwayPRO y MOSS Boutique.',
     action: { label: 'Ver sobre mí', target: 'sobremi' },
     follow: ['¿Qué estudia?', '¿Qué tecnologías usa?'],
   },
@@ -69,8 +69,8 @@ const respuestas = [
   },
   {
     id: 'proyectos',
-    keys: ['proyecto', 'copiway', 'portafolio', 'trabajo', 'hecho', 'construido', 'experiencia'],
-    text: 'Su proyecto principal es **CopiwayPRO**: un sistema de gestión para una dark kitchen de hamburguesas a domicilio, con 5 roles (cliente, cocina, domiciliario, administrador y programador).\n\nIncluye pedidos en línea con armador de hamburguesas, pagos digitales, tablero de cocina, mapa de entregas con PIN, inventario automático, puntos de fidelidad y cierre de caja con reportes PDF.\n\nHecho con React, TypeScript, Tailwind CSS, PHP 8 (MVC sin framework) y MySQL. Ya está en línea en https://www.copiwaypro.com',
+    keys: ['proyecto', 'copiway', 'moss', 'boutique', 'tienda', 'portafolio', 'trabajo', 'hecho', 'construido', 'experiencia'],
+    text: 'Tiene dos proyectos en producción:\n\n• **CopiwayPRO**: sistema de gestión para una dark kitchen de hamburguesas a domicilio, con pedidos en línea, pagos digitales, tablero de cocina, mapa de entregas con PIN, inventario, puntos de fidelidad y reportes PDF. React, TypeScript, PHP 8 y MySQL. https://www.copiwaypro.com\n\n• **MOSS Boutique**: tienda en línea y sistema de administración para una boutique de ropa, con catálogo por talla y color, carrito, pagos con Nequi/Daviplata, ventas, inventario con alertas de stock, facturas con código de barras y reportes. React, Vite, PHP 8 y MySQL. https://mossboutique.store',
     action: { label: 'Ver proyectos', target: 'proyectos' },
     follow: ['¿Qué tecnologías usa?', '¿Cómo lo contacto?'],
   },

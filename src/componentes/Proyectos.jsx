@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Github, ExternalLink, Hammer, Globe } from 'lucide-react';
 import Reveal from './Reveal';
 import copiwaypro from '../assets/copiwaypro.jpg';
+import mossboutique from '../assets/mossboutique.jpg';
 const proyectos = [
   {
     title: 'CopiwayPRO',
@@ -11,6 +12,16 @@ const proyectos = [
     githubUrl: 'https://github.com/aescorciaroa-hash/copiwaypro',
     liveUrl: 'https://www.copiwaypro.com',
     image: copiwaypro,
+    inProgress: false,
+  },
+  {
+    title: 'MOSS Boutique',
+    description:
+      'Tienda en línea y sistema de administración para una boutique de ropa. Los clientes crean su cuenta, filtran el catálogo por talla y color, arman su carrito y pagan en efectivo, Nequi, Daviplata o transferencia (o preguntan por WhatsApp). El equipo gestiona ventas, inventario por talla y color con alertas de stock, clientes, facturas con código de barras y reportes exportables a CSV.',
+    tags: ['React', 'Vite', 'React Router', 'PHP 8', 'MySQL', 'API REST'],
+    githubUrl: 'https://github.com/aescorciaroa-hash/MOSS-Boutique',
+    liveUrl: 'https://mossboutique.store',
+    image: mossboutique,
     inProgress: false,
   },
 ];
