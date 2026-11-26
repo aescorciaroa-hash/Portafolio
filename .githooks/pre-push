@@ -1,0 +1,17 @@
+#!/bin/sh
+# Cada push a main tambien se publica en Hostinger (ingenieroandres.dev).
+# Activado con: git config core.hooksPath .githooks
+# Si el deploy falla, el push sigue igual; reintenta con: npm run deploy
+# Para saltarlo una vez: git push --no-verify
+
+cero=0000000000000000000000000000000000000000
+while read local_ref local_sha remote_ref remote_sha; do
+  if [ "$remote_ref" = "refs/heads/main" ] && [ "$local_sha" != "$cero" ]; then
+    echo ""
+    echo "=== Desplegando a Hostinger ==="
+    if ! node scripts/deploy.js "$local_sha" < /dev/null; then
+      echo "!! El deploy a Hostinger fallo (el push continua). Reintenta con: npm run deploy"
+    fi
+  fi
+done
+exit 0
