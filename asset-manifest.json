@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.6acf7628.css",
-    "main.js": "/static/js/main.0353f74f.js",
+    "main.js": "/static/js/main.922eb9c2.js",
     "static/media/perfil.png": "/static/media/perfil.dd008bdd5a5805dcb252.png",
     "static/media/copiwaypro.jpg": "/static/media/copiwaypro.8cbaddfb8384755d5fb6.jpg",
-    "static/media/mossboutique.jpg": "/static/media/mossboutique.7c72b1d04dd9da39273c.jpg",
+    "static/media/mossboutique.jpg": "/static/media/mossboutique.6baee6f4770b2b3ed0a5.jpg",
     "index.html": "/index.html",
     "main.6acf7628.css.map": "/static/css/main.6acf7628.css.map",
-    "main.0353f74f.js.map": "/static/js/main.0353f74f.js.map"
+    "main.922eb9c2.js.map": "/static/js/main.922eb9c2.js.map"
   },
   "entrypoints": [
     "static/css/main.6acf7628.css",
-    "static/js/main.0353f74f.js"
+    "static/js/main.922eb9c2.js"
   ]
 }
