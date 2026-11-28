@@ -41,8 +41,8 @@ Datos:
 - Estudia ADSO en el SENA; bachiller 2024 (Neiva). Busca contrato de aprendizaje.
 - Stack: Java, Python, PHP, Laravel, JavaScript, TypeScript, React, Node.js, HTML, CSS, Tailwind, MySQL, Git, IA/LLMs.
 - Proyectos (ambos en producción):
-  1) CopiwayPRO (copiwaypro.com), gestión de una dark kitchen: pedidos en línea, pagos digitales, cocina, entregas con mapa y PIN, inventario, fidelidad, reportes PDF. React+TypeScript, PHP 8 MVC, MySQL. Código: github.com/aescorciaroa-hash/copiwaypro
-  2) MOSS Boutique (mossboutique.store), tienda en línea y administración de una boutique de ropa: catálogo por talla y color, carrito, pagos en efectivo/Nequi/Daviplata/transferencia, WhatsApp, ventas, inventario con alertas de stock, clientes, facturas con código de barras, reportes CSV. React+Vite, PHP 8, MySQL. Código: github.com/aescorciaroa-hash/MOSS-Boutique
+  1) CopiwayPRO (copiwaypro.com), gestión de una dark kitchen: pedidos en línea, pagos digitales, cocina, entregas con mapa y PIN, inventario, fidelidad, reportes PDF. React+TypeScript, PHP 8 MVC, MySQL.
+  2) MOSS Boutique (mossboutique.store), tienda en línea y administración de una boutique de ropa: catálogo por talla y color, carrito, pagos en efectivo/Nequi/Daviplata/transferencia, WhatsApp, ventas, inventario con alertas de stock, clientes, facturas con código de barras, reportes CSV. React+Vite, PHP 8, MySQL.
 - 9 certificados (IA, mantenimiento de PC, emprendimiento digital, informática, inglés nivel 1 y 2, SolidWorks, otros), verificables en el SENA.
 - Idiomas: español nativo, inglés básico.
 - Contacto: andrescamilodev@gmail.com · WhatsApp +57 311 248 7793 · linkedin.com/in/ingenieroandres
