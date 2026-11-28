@@ -59,12 +59,12 @@ const respuestas = [
     keys: ['tecnolog', 'stack', 'lenguaje', 'habilidad', 'skills', 'sabe', 'usa', 'herramienta', 'programa en'],
     text: '**Backend:** Java, Python, PHP, Laravel, Node.js\n**Frontend:** JavaScript, TypeScript, React, HTML5, CSS3, Tailwind CSS\n**Datos y más:** MySQL, Git, IA / LLMs',
     action: { label: 'Ver habilidades', target: 'sobremi' },
-    follow: ['¿Qué está aprendiendo?', 'Proyectos'],
+    follow: ['¿Qué sabe de IA?', 'Proyectos'],
   },
   {
     id: 'ia',
     keys: ['ia', 'inteligencia', 'machine', 'llm', 'prompt', 'aprendiendo', 'ahora'],
-    text: 'Ahora mismo está estudiando **Inteligencia Artificial**:\n• Integración de modelos de IA en apps\n• Machine Learning con Python\n• Ingeniería de prompts\n• APIs de IA',
+    text: 'Ya completó su formación en **Inteligencia Artificial** (certificado del SENA): integración de modelos de IA en apps, Machine Learning con Python, ingeniería de prompts y APIs de IA.\n\nAhora mismo cursa el **Tecnólogo en Análisis y Desarrollo de Software (ADSO)** en el SENA. Este trimestre trabaja en **construcción de software**:\n• Bases de datos a partir del modelo de datos\n• Planeación de la construcción del software\n• Codificación según el diseño establecido',
     follow: ['Proyectos', 'Certificados'],
   },
   {

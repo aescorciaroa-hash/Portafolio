@@ -10,7 +10,7 @@ const SENA_VERIFY = 'http://certificados.sena.edu.co';
 
 // Para agregar un certificado: copia el PDF y una imagen (.jpg) en public/certificados
 // y añade un objeto aquí con el mismo "file".
-const certificados = [
+export const certificados = [
   {
     file: 'inteligencia-artificial',
     title: 'Implementación de Soluciones de Inteligencia Artificial',

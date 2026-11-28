@@ -6,6 +6,8 @@ import {
 } from 'react-icons/fa';
 import { SiTypescript, SiTailwindcss } from 'react-icons/si';
 import useScrollReveal from '../hooks/useScrollReveal';
+import { proyectos } from './Proyectos';
+import { certificados } from './Certificados';
 
 const skills = [
   { name: 'Java', icon: <FaJava size={24} />, level: 80 },
@@ -25,10 +27,10 @@ const skills = [
 const nivel = (n) => (n >= 85 ? 'Avanzado' : n >= 65 ? 'Intermedio' : 'Básico');
 
 const learningNow = [
-  'Estudiando Inteligencia Artificial',
-  'Integrando modelos de IA en apps',
-  'Machine Learning con Python',
-  'Ingeniería de prompts y APIs de IA',
+  'Construcción de software · Tecnólogo ADSO (SENA)',
+  'Construyendo bases de datos a partir del modelo de datos',
+  'Planeando la construcción del software según su diseño',
+  'Codificando software de acuerdo con el diseño establecido',
 ];
 
 const fortalezas = [
@@ -38,9 +40,15 @@ const fortalezas = [
   { icon: <Target size={20} />, name: 'Atención al detalle' },
 ];
 
+const enProduccion = proyectos.filter((p) => !p.inProgress).length;
+
 const stats = [
-  { end: 1, suffix: '', label: 'Proyecto en producción' },
-  { end: 9, suffix: '', label: 'Certificaciones' },
+  {
+    end: enProduccion,
+    suffix: '',
+    label: enProduccion === 1 ? 'Proyecto en producción' : 'Proyectos en producción',
+  },
+  { end: certificados.length, suffix: '', label: 'Certificaciones' },
   { end: 12, suffix: '', label: 'Tecnologías' },
 ];
 
