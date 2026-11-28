@@ -3,8 +3,8 @@ import { Send, CheckCircle, AlertCircle, Loader2, Copy, Check, ArrowUpRight } fr
 import { FaGithub, FaLinkedin, FaEnvelope, FaWhatsapp, FaPhoneAlt } from 'react-icons/fa';
 import Reveal from './Reveal';
 
-// NOTA: crea tu cuenta gratis en https://formspree.io y reemplaza el endpoint.
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/TU_ID_AQUI';
+// Endpoint en Hostinger (hostinger/api/contacto.php) que envía el mensaje por correo.
+const CONTACT_ENDPOINT = process.env.REACT_APP_CONTACT_ENDPOINT ?? '/api/contacto';
 const EMAIL = 'andrescamilodev@gmail.com';
 const TELEFONO = '573112487793'; // con indicativo de Colombia (+57)
 const TELEFONO_VISIBLE = '+57 311 248 7793';
@@ -41,7 +41,7 @@ const Contacto = () => {
     const form = e.target;
     const data = new FormData(form);
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      const res = await fetch(CONTACT_ENDPOINT, {
         method: 'POST',
         body: data,
         headers: { Accept: 'application/json' },
@@ -109,6 +109,15 @@ const Contacto = () => {
         <Reveal delay={120}>
           <form onSubmit={handleSubmit} className="glass-card form-card">
             <span className="form-glow" aria-hidden="true" />
+            {/* Campo trampa para bots: oculto a las personas, debe ir vacío */}
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+            />
             <div className="field">
               <input type="text" name="name" id="name" placeholder=" " required />
               <label htmlFor="name">Tu nombre</label>

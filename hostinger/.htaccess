@@ -4,6 +4,8 @@
 
     # El frontend llama a /api/chat -> api/chat.php
     RewriteRule ^api/chat/?$ api/chat.php [L]
+    # El formulario de contacto llama a /api/contacto -> api/contacto.php
+    RewriteRule ^api/contacto/?$ api/contacto.php [L]
 </IfModule>
 
 # La clave de la API nunca se entrega por web
